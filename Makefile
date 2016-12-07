@@ -1,4 +1,4 @@
 .PHONY: all
 
 all:
-	javac PTGen.java
+	javac -cp .:* PTGen.java
