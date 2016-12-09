@@ -42,23 +42,23 @@ public class PTGen {
 		int h = Integer.parseInt(args[0]);
 		int l = Integer.parseInt(args[1]);
 		Random rand = new Random(Integer.parseInt(args[2]));
-		Graph graph = new SingleGraph("binary");
+		Graph pt = new SingleGraph("pt");
 
-		graph.addAttribute("ui.antialias");
-		graph.addAttribute("ui.stylesheet", "node { size: 20px; fill-color: #FFFFFF; stroke-width: 2px;" +
-						    "stroke-mode: plain;shadow-mode: plain; shadow-width: 0px;" +
-						    "shadow-color: #CCC; shadow-offset: 3px, -3px; text-style: bold; }" +
-						    "node.root {size: 30px; stroke-width: 2px; text-size: 12; }");
+		pt.addAttribute("ui.antialias");
+		pt.addAttribute("ui.stylesheet", "node { size: 20px; fill-color: #FFFFFF; stroke-width: 2px;" +
+						 "stroke-mode: plain;shadow-mode: plain; shadow-width: 0px;" +
+						 "shadow-color: #CCC; shadow-offset: 3px, -3px; text-style: bold; }" +
+						 "node.root {size: 30px; stroke-width: 2px; text-size: 12; }");
 
-		Node root = graph.addNode("0");
+		Node root = pt.addNode("0");
 		root.addAttribute("ui.label", "R");
 		root.addAttribute("ui.class", "root");
 
-		chain(graph, "0", h * l);
+		chain(pt, "0", h * l);
 		for (int i = Math.abs(rand.nextInt()) % 2; i < h; i++)
 			for (int j = 0; j < BRANCH_SIZE - 1; j++)
-				subtrees(graph, Integer.valueOf(i * l).toString(), h - i, l, rand);
+				subtrees(pt, Integer.valueOf(i * l).toString(), h - i, l, rand);
 
-		graph.display();
+		pt.display();
 	}
 }
