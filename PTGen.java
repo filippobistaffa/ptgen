@@ -27,7 +27,7 @@ public class PTGen {
 	static void subtrees(Graph graph, String id, int h, int l, Random rand) {
 
 		if (h >= 1) {
-			String node = chain(graph, Integer.valueOf(id).toString(), l);
+			String node = chain(graph, id, l);
 			if (rand.nextBoolean())
 				for (int i = 0; i < BRANCH_SIZE; i++)
 					subtrees(graph, node, h - 1, l, rand);
