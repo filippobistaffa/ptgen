@@ -80,5 +80,25 @@ public class PTGen {
 				subtrees(pt, Integer.valueOf(i * l).toString(), h - i, l, rand);
 
 		pt.display();
+
+		Graph primal = Graphs.clone(pt);
+		List<Collection<Node>> descendants = new ArrayList<Collection<Node>>();
+
+		for (int i = 0; i < pt.getNodeCount(); i++)
+			descendants.add(new HashSet<Node>());
+
+		computedescendants(pt, 0, descendants);
+
+		for (int i = 0; i < pt.getNodeCount(); i++)
+			descendants.get(i).removeAll(children(pt, i));
+
+		for (Node node : pt.getEachNode())
+			for (Node desc : descendants.get(node.getIndex())) {
+				//System.out.println(node.getId() + "--" + desc.getId());
+				//if (rand.nextBoolean())
+					primal.addEdge(node.getId() + "--" + desc.getId(), node.getId(), desc.getId());
+			}
+
+		primal.display();
 	}
 }
