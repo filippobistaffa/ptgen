@@ -1,9 +1,8 @@
 import java.io.*;
-import java.util.Random;
+import java.util.*;
 
-import org.graphstream.graph.Node;
-import org.graphstream.graph.Graph;
-import org.graphstream.graph.implementations.SingleGraph;
+import org.graphstream.graph.*;
+import org.graphstream.graph.implementations.*;
 import org.graphstream.ui.view.Viewer;
 
 public class PTGen {
