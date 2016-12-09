@@ -10,7 +10,7 @@ public class PTGen {
 
 	private static final int DOMAIN_SIZE = 2;
 	private static final int BRANCH_SIZE = 2;
-	static int nodeID = 1;
+	private static int nodeID = 1;
 
 	static String chain(Graph graph, String id, int l) {
 
@@ -50,12 +50,12 @@ public class PTGen {
 						    "shadow-color: #CCC; shadow-offset: 3px, -3px; text-style: bold; }" +
 						    "node.root {size: 30px; stroke-width: 2px; text-size: 12; }");
 
-		Node root = graph.addNode("r");
+		Node root = graph.addNode("0");
 		root.addAttribute("ui.label", "R");
 		root.addAttribute("ui.class", "root");
 
-		chain(graph, "r", h * l);
-		for (int i = 1; i < h; i++)
+		chain(graph, "0", h * l);
+		for (int i = Math.abs(rand.nextInt()) % 2; i < h; i++)
 			for (int j = 0; j < BRANCH_SIZE - 1; j++)
 				subtrees(graph, Integer.valueOf(i * l).toString(), h - i, l, rand);
 
