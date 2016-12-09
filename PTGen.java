@@ -14,9 +14,7 @@ public class PTGen {
 
 	static void subtrees(Graph graph, String id, int h, Random rand) {
 
-		boolean coin = rand.nextBoolean();
-
-		if (coin) {
+		if (rand.nextBoolean()) {
 
 			for (int i = 0; i < BRANCH_SIZE; i++) {
 				String name = Integer.valueOf(nodeID++).toString();
