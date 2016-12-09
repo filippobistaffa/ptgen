@@ -34,6 +34,27 @@ public class PTGen {
 		}
 	}
 
+	static Collection<Node> children(Graph pt, int index) {
+
+		Collection<Node> hs = new HashSet<Node>();
+		Node node = pt.getNode(index);
+
+		for (Edge edge : node.getEdgeSet())
+			if (edge.getOpposite(node).getIndex() > index)
+				hs.add(edge.getOpposite(node));
+
+		return hs;
+	}
+
+	static void computedescendants(Graph pt, int index, List<Collection<Node>> descendants) {
+
+		for (Node ch : children(pt, index)) {
+			computedescendants(pt, ch.getIndex(), descendants);
+			descendants.get(index).add(pt.getNode(ch.getId()));
+			descendants.get(index).addAll(descendants.get(ch.getIndex()));
+		}
+	}
+
 	public static void main(String[] args) throws IOException {
 
 		System.setProperty("org.graphstream.ui.renderer", "org.graphstream.ui.j2dviewer.J2DGraphRenderer");
