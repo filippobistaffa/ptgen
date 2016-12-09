@@ -12,17 +12,19 @@ public class PTGen {
 	private static final int BRANCH_SIZE = 2;
 	static int nodeID = 1;
 
-	static void subtrees(Graph graph, Node node, int h, Random rand) {
+	static void subtrees(Graph graph, String id, int h, Random rand) {
 
 		boolean coin = rand.nextBoolean();
 
 		if (coin) {
-			String newname = Integer.valueOf(nodeID++).toString();
-			Node newnode = graph.addNode(newname);
-			newnode.addAttribute("ui.label", newname);
-			graph.addEdge(newname + "--" + node.getId(), newname, node.getId());
-			if (h > 1) for (int i = 0; i < BRANCH_SIZE; i++)
-				subtrees(graph, newnode, h - 1, rand);
+
+			for (int i = 0; i < BRANCH_SIZE; i++) {
+				String name = Integer.valueOf(nodeID++).toString();
+				Node node = graph.addNode(name);
+				node.addAttribute("ui.label", name);
+				graph.addEdge(name + "--" + id, name, id);
+				if (h > 1) subtrees(graph, name, h - 1, rand);
+			}
 		}
 	}
 
@@ -41,7 +43,7 @@ public class PTGen {
 		Node root = graph.addNode("r");
 		root.addAttribute("ui.label", "R");
 		root.addAttribute("ui.class", "root");
-		if (h > 1) subtrees(graph, root, h - 1, rand);
+		if (h > 1) subtrees(graph, "r", h - 1, rand);
 		graph.display();
 	}
 }
