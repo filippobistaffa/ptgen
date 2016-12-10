@@ -4,9 +4,9 @@ red='\033[0;31m'			# Red
 nc='\033[0m'				# No color
 re='^[0-9]+$'				# Regular expression to detect natural numbers
 
-usage() { echo -e "Usage: $0 -h <height> -l <length> -s <seed>\n-h\tHeight of the pseudotree is <height> * <length>\n-l\tLength of the chains\n-s\tSeed\n" 1>&2; exit 1; }
+usage() { echo -e "Usage: $0 -h <height> -l <length> -s <seed> -o <outfile>\n-h\tHeight of the pseudotree is <height> * <length>\n-l\tLength of the chains\n-s\tSeed\n-o\tOutput file" 1>&2; exit 1; }
 
-while getopts ":h:l:s:" o; do
+while getopts ":h:l:s:o:" o; do
 	case "${o}" in
 	h)
 		h=${OPTARG}
@@ -29,6 +29,16 @@ while getopts ":h:l:s:" o; do
 			usage
 		fi
 		;;
+	o)
+		o=${OPTARG}
+		touch $p 2> /dev/null
+		rc=$?
+		if [[ $rc != 0 ]]
+		then
+			echo -e "${red}Unable to write to $o${nc}"
+			exit
+		fi
+		;;
 	\?)
 		echo -e "${red}-$OPTARG is not a valid option!${nc}\n"
 		usage
@@ -37,11 +47,11 @@ while getopts ":h:l:s:" o; do
 done
 shift $((OPTIND-1))
 
-if [ -z "${h}" ] || [ -z "${l}" ] || [ -z "${s}" ]; then
+if [ -z "${h}" ] || [ -z "${l}" ] || [ -z "${s}" ] || [ -z "${o}" ]; then
 	echo -e "${red}Missing one or more required options!${nc}\n"
 	usage
 fi
 
-java -cp .:* PTGen $h $l $s
+java -cp .:* PTGen $h $l $s $o
 rc=$?
 exit $rc
