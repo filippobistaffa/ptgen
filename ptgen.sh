@@ -30,12 +30,12 @@ while getopts ":h:l:s:o:" o; do
 		fi
 		;;
 	o)
-		o=${OPTARG}
-		touch $p 2> /dev/null
+		out=${OPTARG}
+		touch $out 2> /dev/null
 		rc=$?
 		if [[ $rc != 0 ]]
 		then
-			echo -e "${red}Unable to write to $o${nc}"
+			echo -e "${red}Unable to write to $out${nc}"
 			exit
 		fi
 		;;
@@ -47,11 +47,11 @@ while getopts ":h:l:s:o:" o; do
 done
 shift $((OPTIND-1))
 
-if [ -z "${h}" ] || [ -z "${l}" ] || [ -z "${s}" ] || [ -z "${o}" ]; then
+if [ -z "${h}" ] || [ -z "${l}" ] || [ -z "${s}" ] || [ -z "${out}" ]; then
 	echo -e "${red}Missing one or more required options!${nc}\n"
 	usage
 fi
 
-java -cp .:* PTGen $h $l $s $o
+java -cp .:* PTGen $h $l $s $out
 rc=$?
 exit $rc
