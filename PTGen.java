@@ -9,7 +9,7 @@ public class PTGen {
 
 	private static final int DOMAIN_SIZE = 2;
 	private static final int BRANCH_SIZE = 2;
-	private static final float MAX_VALUE = 10f;
+	private static final int MAX_VALUE = 100;
 	private static int nodeID = 1;
 
 	static String chain(Graph graph, String id, int l) {
@@ -62,8 +62,7 @@ public class PTGen {
 		wcsp.println(String.format("2 %d %d 0 %d", e.getNode0().getIndex(), e.getNode1().getIndex(), n));
 
 		for (int i = 0; i < n; i++)
-			wcsp.println(String.format("%d %d %f", i / DOMAIN_SIZE, i % DOMAIN_SIZE,
-							       rand.nextFloat() * MAX_VALUE));
+			wcsp.println(String.format("%d %d %d", i / DOMAIN_SIZE, i % DOMAIN_SIZE, rand.nextInt(MAX_VALUE)));
 	}
 
 	public static void main(String[] args) throws IOException {
@@ -90,7 +89,7 @@ public class PTGen {
 			for (int j = 0; j < BRANCH_SIZE - 1; j++)
 				subtrees(pt, Integer.valueOf(i * l).toString(), h - i, l, rand);
 
-		//pt.display();
+		pt.display();
 
 		Graph primal = Graphs.clone(pt);
 		List<Collection<Node>> descendants = new ArrayList<Collection<Node>>();
