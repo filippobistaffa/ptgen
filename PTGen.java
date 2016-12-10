@@ -79,7 +79,7 @@ public class PTGen {
 			for (int j = 0; j < BRANCH_SIZE - 1; j++)
 				subtrees(pt, Integer.valueOf(i * l).toString(), h - i, l, rand);
 
-		pt.display();
+		//pt.display();
 
 		Graph primal = Graphs.clone(pt);
 		List<Collection<Node>> descendants = new ArrayList<Collection<Node>>();
@@ -99,7 +99,7 @@ public class PTGen {
 					primal.addEdge(node.getId() + "--" + desc.getId(), node.getId(), desc.getId());
 			}
 
-		primal.display();
+		//primal.display();
 
 		PrintWriter wcsp = new PrintWriter(args[3], "UTF-8");
 		wcsp.println(String.format("%s %d %d %d %d", args[2], primal.getNodeCount(), DOMAIN_SIZE,
