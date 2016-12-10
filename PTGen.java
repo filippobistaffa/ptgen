@@ -9,6 +9,7 @@ public class PTGen {
 
 	private static final int DOMAIN_SIZE = 2;
 	private static final int BRANCH_SIZE = 2;
+	private static final float MAX_VALUE = 10f;
 	private static int nodeID = 1;
 
 	static String chain(Graph graph, String id, int l) {
@@ -53,6 +54,16 @@ public class PTGen {
 			descendants.get(index).add(pt.getNode(ch.getId()));
 			descendants.get(index).addAll(descendants.get(ch.getIndex()));
 		}
+	}
+
+	static void printconstraint(PrintWriter wcsp, Edge e, Random rand) {
+
+		int n = (int)Math.pow(DOMAIN_SIZE, 2);
+		wcsp.println(String.format("2 %d %d 0 %d", e.getNode0().getIndex(), e.getNode1().getIndex(), n));
+
+		for (int i = 0; i < n; i++)
+			wcsp.println(String.format("%d %d %f", i / DOMAIN_SIZE, i % DOMAIN_SIZE,
+							       rand.nextFloat() * MAX_VALUE));
 	}
 
 	public static void main(String[] args) throws IOException {
@@ -108,6 +119,9 @@ public class PTGen {
 		for (int i = 0; i < pt.getNodeCount() - 1; i++)
 			wcsp.print(String.format("%d ", DOMAIN_SIZE));
 		wcsp.println(String.format("%d", DOMAIN_SIZE));
+
+		for (Edge edge : primal.getEachEdge())
+			printconstraint(wcsp, edge, rand);
 
 		wcsp.close();
 	}
