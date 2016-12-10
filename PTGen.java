@@ -100,5 +100,15 @@ public class PTGen {
 			}
 
 		primal.display();
+
+		PrintWriter wcsp = new PrintWriter(args[3], "UTF-8");
+		wcsp.println(String.format("%s %d %d %d %d", args[2], primal.getNodeCount(), DOMAIN_SIZE,
+							     primal.getEdgeCount(), Integer.MAX_VALUE));
+
+		for (int i = 0; i < pt.getNodeCount() - 1; i++)
+			wcsp.print(String.format("%d ", DOMAIN_SIZE));
+		wcsp.println(String.format("%d", DOMAIN_SIZE));
+
+		wcsp.close();
 	}
 }
